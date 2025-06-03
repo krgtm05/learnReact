@@ -22,8 +22,16 @@ function App() {
       <br/>
       <button onClick={addTask}>Add task</button>
       <br/>
-
-      {JSON.stringify(todos)}
+      {/* {JSON.stringify(todos)} */}
+      {
+        todos.map((todo) => {
+          return <>
+          <h3>{todo.id}</h3>
+          <h3>{todo.title}</h3>
+          <h3>{todo.status?"True":"False"}</h3>
+          </>
+        })
+      }
     </>
   )
 }
