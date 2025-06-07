@@ -1,39 +1,42 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 
 function App() {
-  const [todos, setTodos] = useState([
-    {id:1, title:"go to gym",status:false}
-  ])
-  const addTask = () => {
-    setTodos([...todos,{
-      id:document.getElementById('id').value,
-      title:document.getElementById('title').value,
-      status:document.getElementById('status').value,
-    }])
-  }
-  return (
-    <>
-      <input id='id' type='text' placeholder='id'></input>
-      <br/>
-      <input id='title' type='text' placeholder='title'></input>
-      <br/>
-      <input id='status' type='text' placeholder='status'></input>
-      <br/>
-      <button onClick={addTask}>Add task</button>
-      <br/>
-      {/* {JSON.stringify(todos)} */}
-      {
-        todos.map((todo) => {
-          return <>
-          <h3>{todo.id}</h3>
-          <h3>{todo.title}</h3>
-          <h3>{todo.status?"True":"False"}</h3>
-          </>
-        })
-      }
-    </>
-  )
-}
+  const [condition,setCondition] = useState(true); 
 
+  useEffect(function(){
+    setInterval(function(){
+      setCondition(c=>!c);
+    },5000)
+  },[])
+  return ( <>
+    {condition && <Counter/>}
+  </> )
+}
+function Counter(){
+  const [count, setCount] = useState(0);
+useEffect(function(){
+  setInterval( function(){
+      setCount(count => count+1);
+    },1000)
+  },[]) //dependency array
+  const increment = () => {
+    // setCount(count+1);
+  }
+  const decrement = () => {
+    setCount(count-1);
+  }
+
+  const reset = () => {
+    setCount(0);
+  }
+  return <div>
+    <>
+      <p>Count: {count}</p>
+      <button onClick={increment}>Increment</button>
+      <button onClick={decrement}>Decrement</button>
+      <button onClick={reset}>Reset</button>
+    </>
+  </div>
+}
 export default App
